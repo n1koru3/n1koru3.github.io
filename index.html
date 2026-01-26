@@ -1,30 +1,1860 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N1kōru | Portfolio</title>
+    <link rel="icon" href="https://fav.farm/👾">
     <style>
-        /* Based on GitHub README style */
-        body { 
-            background-color: #0d1117; 
-            color: #c9d1d9; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 50px; text-align: center;
+        :root {
+            /* Discord-inspired Colors */
+            --primary: #1cdc00;        /* Brighter Green */
+            --secondary: #9933FF;      /* Neon Purple */
+            --accent-blue: #58a6ff;    /* Electric Blue */
+            --accent-red: #ff4757;     /* Neon Red */
+            --bg: #1e1f22;             /* Discord Dark Grey */
+            --card-bg: #2b2d31;        /* Discord Card Grey */
+            --nav-bg: rgba(30, 31, 34, 0.95);
+            --text-main: #dbdee1;
+            --text-dim: #b5bac1;
         }
-        h1 { color: #00FF88; } /* Mint Green */
-        .status { color: #A652BB; font-weight: bold; } /* Purple */
-        .container { max-width: 800px; margin: auto; border: 1px solid #30363d; padding: 20px; border-radius: 10px; }
+
+/* --- TEXT WRAPPING LOGIC --- */
+    p, h1, h2, h3, h4, span, div {
+        white-space: normal;      /* Allows text to wrap naturally */
+        word-wrap: break-word;    /* Breaks long words if they hit the edge */
+        overflow-wrap: break-word;
+    }
+
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'JetBrains Mono', monospace, sans-serif;
+            margin: 0; padding: 0px; 
+	    min-width: 1200px; 
+    	    overflow-x: auto;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+
+/* For Firefox */
+    scrollbar-width: none;
+    
+    /* For Internet Explorer and Edge */
+    -ms-overflow-style: none;
+
+        }
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+        header { text-align: center; margin-bottom: 50px; }
+        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: var(--secondary); font-size: 1.2rem; }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 0%;
+            background-image: linear-gradient(to right, var(--bg) 30%, transparent 80%), url('imgs/hero/bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 1;
+	    justify-content: space-between; /* Pushes text left and glow right */
+    	    overflow: hidden;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg), transparent);
+            pointer-events: none;
+	    padding-left: clamp(20px, 8vw, 10%);
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* --- GLITCH EFFECT FOR NAME --- */
+        .hero-title span {
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(153, 51, 255, 0.6);
+            animation: glitch-main 3s infinite alternate;
+        }
+
+        .hero-title span::before,
+        .hero-title span::after {
+            content: 'N1kōru';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .hero-title span::before {
+            color: var(--accent-red);
+            z-index: -1;
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+
+        .hero-title span::after {
+            color: var(--accent-blue);
+            z-index: -2;
+            animation: glitch-anim 3s infinite linear alternate;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 2px); }
+            20% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -2px); }
+            40% { clip-path: inset(20% 0 60% 0); transform: translate(-1px, 1px); }
+            60% { clip-path: inset(80% 0 10% 0); transform: translate(2px, 2px); }
+            80% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, -1px); }
+            100% { clip-path: inset(0% 0 90% 0); transform: translate(1px, -2px); }
+        }
+
+        @keyframes glitch-main {
+            0%, 90%, 100% { transform: scale(1); }
+            92% { text-shadow: 2px 0 var(--accent-red), -2px 0 var(--accent-blue); transform: scale(1.02) skewX(2deg); }
+            94% { text-shadow: -3px 0 var(--accent-red), 3px 0 var(--accent-blue); transform: scale(0.98) skewX(-2deg); }
+        }
+
+        .hero-bio {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(153, 51, 255, 0.5);
+            transform: translateY(-3px);
+            background: #b366ff;
+        }
+
+        .btn-outline {
+            border: 1px solid #4e5058;
+            color: #fff;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+
+        /* The Glow Effect on the right */
+        .hero-visual {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+        }
+
+        .glow-sphere {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.2; }
+            to { transform: scale(1.2); opacity: 0.3; }
+        }
+        /* This is for phones and small tablets */
+        @media (max-width: 768px) {
+            .hero-section {
+                /* Swap to a vertical version of your art */
+                background-image: linear-gradient(to bottom, rgba(13, 17, 23, 0.8) 0%, transparent 50%, #0d1117 100%), 
+                                  url('imgs/hero/bg-mobile.jpg');
+
+                background-position: center bottom;
+                height: 60vh; /* Give mobile users a bit more room */
+            }
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem); 
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        }
+
+        /* Mobile Responsive 
+        @media (max-width: 900px) {
+            .hero-section {
+                flex-direction: column;
+                justify-content: center;
+                padding: 5 0%;
+    		align-items: flex-start; /* Force everything to stay on the LEFT */
+
+            }
+            .hero-title { font-size: 2.8rem; }
+            .hero-btns { justify-content: center; }
+            .hero-visual { display: none; }
+        }*/
+
+        /* Categories & Headers */
+        .category-header {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        .row-label {
+            color: var(--accent-red);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            border-bottom: 1px solid #3f4147;
+            display: inline-block;
+        }
+
+        /* Cards and Hover Effects */
+        .art-card, .soft-card, .draft-card {
+            background: var(--card-bg);
+            border: 1px solid #3f4147;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Custom Hover Glows per Section */
+        #traditional .art-card:hover, #digital .art-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(153, 51, 255, 0.4);
+            transform: translateY(-8px);
+        }
+
+        #techDraft .draft-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.4);
+            transform: translateY(-8px);
+        }
+
+        #software .soft-card:hover {
+            border-color: rgba(255, 165, 0);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.4)
+            transform: translateY(-8px);
+        }
+
+        /* The Grid for your Art/Drafting */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto auto;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .card img { width: 100%; border-radius: 8px; }
+        .card h3 { color: var(--primary); margin: 15px 0 5px 0; }
+        .card p { font-size: 0.9rem; color: #8b949e; }
+
+/* --- NAVIGATION BASE --- */
+nav {
+    background: var(--nav-bg);
+    border-bottom: 1px solid #30363d;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; /* Locked height to prevent jumping */
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    height: 100%;
+}
+
+.logo { 
+    color: var(--secondary); 
+    font-weight: bold; 
+    font-size: 1.5rem; 
+    white-space: nowrap;
+}
+
+.nav-links { 
+    list-style: none; 
+    display: flex; 
+    gap: 30px; 
+    margin: 0; 
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--text-dim); 
+    font-size: 0.95rem;
+    transition: 0.3s; 
+}
+
+.nav-links a:hover { color: var(--primary); }
+
+/* --- MENU TOGGLE (HIDDEN ON DESKTOP) --- */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: var(--secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* --- MOBILE ADAPTIVE NAV --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show only on mobile */
+    }
+
+    .nav-links {
+        display: none; /* Hide standard links */
+        flex-direction: column;
+        position: absolute;
+        top: 70px; /* Snaps exactly below the 70px nav bar */
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        border-bottom: 2px solid var(--secondary);
+        padding: 20px 0;
+        gap: 20px;
+        z-index: 1999;
+    }
+
+    .nav-links.active {
+        display: flex; /* Shown when toggled */
+    }
+
+    /* Adjust dropdown for mobile */
+    .dropdown-content {
+        position: static;
+        display: block;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+}
+
+/* --- DESKTOP DROPDOWN --- */
+.dropdown { position: relative; }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--card-bg);
+    min-width: 200px;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dropdown:hover .dropdown-content { display: block; }
+
+	
+        .logo { color: var(--secondary); font-weight: bold; font-size: 1.5rem; }
+
+        .nav-links a { text-decoration: none; color: var(--text-dim); transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+
+        /* Dropdown Logic */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            z-index: 1;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: #c9d1d9;
+            padding: 12px 16px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #30363d;
+            color: var(--primary);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .about-section {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-top: 70px;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            color: #f0f6fc;
+            margin-bottom: 10px;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .dali-quote {
+            font-size: 1.1rem;
+            color: #8b949e;
+            font-style: italic;
+            border: none;
+            margin: 10px 0 30px 0;
+        }
+
+        .svg-container {
+            margin: 30px 0 30px 0;
+        }
+
+        .svg-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content-wrapper {
+            text-align: left; /* Keeps the text professional and readable */
+            line-height: 1.6;
+            color: #c9d1d9;
+        }
+
+        .content-header {
+            font-size: 1.75rem;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #f0f6fc;
+        }
+
+        .content-wrapper p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: #30363d;
+            margin: 40px auto;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+
+        .tag-container {
+            display: flex;
+            justify-content: center; /* Centers tags under the quote */
+            gap: 12px;               /* Space between tags */
+            flex-wrap: wrap;         /* Allows wrapping on small screens */
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            border-radius: 50px;     /* Makes it a pill shape */
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        /* Specific Tag Colors */
+        .tag-art {
+            background: rgba(166, 82, 187, 0.1);
+            color: #A652BB;
+            border-color: rgba(166, 82, 187, 0.3);
+        }
+
+        .tag-cyber {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00FF88;
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .tag-dev {
+            background: rgba(255, 165, 0, 0.1);
+            color: #FFA500;
+            border-color: rgba(255, 165, 0, 0.3);
+        }
+
+        .tag-draft {
+            background: rgba(88, 166, 255, 0.1);
+            color: #58a6ff;
+            border-color: rgba(88, 166, 255, 0.3);
+        }
+
+        /* Hover effect to make it feel "Premium" */
+        .tag:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .skills-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                flex-direction: column; /* Stacks columns on mobile */
+            }
+        }
+
+        .skills-column {
+            flex: 1;
+            background: rgba(22, 27, 34, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        .skills-column h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+
+        /* Color coding the headers */
+        .skills-column:first-child h3 { 
+            color: var(--primary); 
+            border-color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        .skills-column:last-child h3 { 
+            color: var(--secondary); 
+            border-color: var(--secondary);
+            text-shadow: 0 0 10px rgba(166, 82, 187, 0.2);
+        }
+
+        .skills-column ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .skills-column li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #c9d1d9;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        /* Custom bullet points */
+        .skills-column li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .skills-column:last-child li::before {
+            color: var(--secondary);
+        }
+
+/* --- ORGANIZATIONS SECTION --- */
+.orgs-section {
+    margin-top: 50px;
+    text-align: left;
+ 
+    max-width: 1400px;
+    margin: 50px auto 0;
+    padding: 0 calc(2% + 2vw);
+}
+
+.orgs-container {
+    display: grid;
+    /* This tells the cards: "Fill the space, but don't get smaller than 100% on mobile" */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.org-card {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 10px;
+    /* Ensure the card itself doesn't force a width wider than the screen */
+    max-width: 100%; 
+    transition: all 0.3s ease;
+}
+
+/* --- THE ADAPTIVE TRIGGER --- */
+@media (max-width: 768px) {
+
+    /* Crucial: Override any fixed body widths from earlier */
+    body {
+        min-width: 50vw !important; 
+	margin-left: 0px;
+    }
+
+	.main-title {
+            font-size: 1.5rem;
+	}
+	.dali-quote {
+            font-size: 0.9rem;
+	}
+
+    .orgs-container {
+        /* Force single column on mobile */
+        grid-template-columns: 1fr; 
+    }
+
+    .org-card {
+        /* Reduce padding so text has more room to wrap */
+        padding: 10px; 
+        gap: 10px;
+    }
+
+    .org-info h4 {
+        font-size: 0.95rem; /* Compact title */
+    }
+
+    .org-info p {
+        font-size: 0.75rem; /* Compact description */
+    }
+}
+
+
+.org-card:hover {
+    border-color: var(--secondary); /* Neon Purple Glow */
+    background: rgba(153, 51, 255, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(153, 51, 255, 0.2);
+}
+
+.org-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #fff;
+    flex-shrink: 0; /* Prevents the logo from being squished */
+}
+
+.org-info {
+    min-width: 0; /* Critical: Allows text inside flexbox to wrap properly */
+}
+
+.org-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--primary); /* Mint Green */
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.org-info p {
+    margin: 5px 0 0 0;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+
+        /* Color Overrides */
+        /* Orange - ACES */
+        .card-aces:hover { 
+            border-color: #FFA500; 
+            background: rgba(255, 165, 0, 0.05);
+            transform: translateY(-5px);
+        }
+        .card-aces:hover h4 { color: #FFA500; }
+
+        /* Blue - Esteyo */
+        .card-esteyo:hover { 
+            border-color: #58a6ff; 
+            background: rgba(88, 166, 255, 0.05);
+            transform: translateY(-5px);
+        }
+        .card-esteyo:hover h4 { color: #58a6ff; }
+
+        /* Cyan - A1SBERG */
+        .card-a1sberg:hover { 
+            border-color: #00FFFF; 
+            background: rgba(0, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+        .card-a1sberg:hover h4 { color: #00FFFF; }
+
+        /* Purple - Likhalim */
+        .card-likhalim:hover { 
+            border-color: #A652BB; 
+            background: rgba(166, 82, 187, 0.05);
+            transform: translateY(-5px);
+        }
+        .card-likhalim:hover h4 { color: #A652BB; }
+
+
+        .contacts-section {
+            margin-top: 20px 20px;
+	    position: relative;
+	    padding-top: 50px;
+	    margin-top: -60px;
+            text-align: center;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .contact-desc {
+            color: #8b949e;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px; /* This adds the space between icons */
+            margin-bottom: 10px;
+        }
+
+        .contact-icon {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .contact-icon img {
+            width: 50px; /* Perfect size for profile icons */
+            height: 50px;
+        }
+
+        .contact-icon:hover {
+            transform: scale(1.2); /* Makes the icon pop out */
+            filter: drop-shadow(0 0 10px var(--primary)); /* Uses your Mint Green glow */
+        }
+
+
+        .site-footer {
+            padding: 20px 40px;
+            text-align: center;
+            background: transparent; /* Keeps it feeling integrated with the page */
+        }
+
+        .footer-line {
+            width: 900px;
+            height: 2px;
+            background: var(--secondary); /* Your Purple signature color */
+            margin: 0 auto 20px;
+        }
+
+        .footer-divider {
+            
+            height: 4px;
+            background: var(--secondary);
+            margin: 0 auto;
+           border: 0;
+            margin: 40px auto;
+
+
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .footer-copyright {
+            color: #fff;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-copyright span {
+            color: var(--primary); /* Mint Green highlight for your name */
+            font-weight: bold;
+        }
+
+        .footer-tagline {
+            color: #8b949e;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .projects-master {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+        }
+
+        .project-category {
+            margin-bottom: 0px;
+            scroll-margin-top: 100px; /* Prevents the sticky nav from covering the title */
+        }
+
+        .category-header {
+            font-size: 1.8rem;
+            color: var(--primary);
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        .category-desc {
+            color: #8b949e;
+            margin-bottom: 30px;
+        }
+
+        /* ART GRID - Portrait Style */
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .art-img-container img {
+            width: 100%;
+            height: 400px; /* Taller for paintings */
+            object-fit: cover;
+        }
+
+        /* DRAFT GRID - Wide Style */
+        .draft-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) { .draft-grid { grid-template-columns: 1fr; } }
+
+        .draft-card img {
+            width: 100%;
+            filter: grayscale(50%) contrast(1.2); /* Gives it a "blueprint" look */
+            transition: 0.3s;
+        }
+
+        .draft-card:hover img {
+            filter: none;
+        }
+
+        .art-info, .draft-info {
+            padding: 15px;
+        }
+
+        .art-info h4, .draft-info h4 { margin: 0; color: #f0f6fc; }
+        .art-info p, .draft-info p { margin: 5px 0 0 0; font-size: 0.85rem; color: #8b949e; }
+
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between rows */
+            padding: 0px 0;
+        }
+
+        .row-label {
+            color: #ff002d;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            margin-top: 15px;
+            border-bottom: 1px solid #30363d;
+            display: inline-block;
+        }
+
+        .art-row {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .art-card {
+            flex: 1; /* This makes all items in the row share the width equally */
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .art-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Keeps the grid neat and filled */
+            display: block;
+        }
+
+        /* Row-Specific Ratios */
+        .landscape-row .art-card { aspect-ratio: 16 / 9; }
+        .portrait-row .art-card  { aspect-ratio: 4 / 5; }
+        .square-row .art-card    { aspect-ratio: 1 / 1; }
+
+
+        .placeholder {
+            border: 2px dashed #30363d; /* Makes placeholders look "empty" until you add art */
+        }
+
+        /* Mobile: If the screen is too small, allow them to wrap */
+        @media (max-width: 768px) {
+            .art-row {
+                flex-wrap: wrap;
+            }
+            .art-card {
+                flex: 1 1 calc(50% - 15px); /* Show 2 per row on mobile */
+            }
+        }
+
+        /* Lightbox Background */
+        .lightbox {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000; /* Stays on top of everything */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Darken background */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        /* The enlarged image */
+        .lightbox img {
+            max-width: 90% ;
+            max-height: 80%;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(166, 82, 187, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Style the gallery images to show they are clickable */
+        .art-card img {
+            cursor: zoom-in;
+        }
+
+        .draft-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .draft-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .draft-img-box {
+            width: 100%;
+            /* We use the 400px height from Traditional Arts as the baseline */
+            height: 250px; 
+            overflow: hidden;
+            background: #0d1117;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .draft-img-box img {
+            /* This ensures the image keeps the 5:3 ratio but fits within the 25px height */
+            max-height: 100%; 
+            max-width: 100%;
+            aspect-ratio: 5 / 3;
+            object-fit: contain; 
+            cursor: zoom-in;
+        }
+
+        /* Ensure the cards in the grid look uniform */
+        .draft-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: auto; /* Let the card height adjust to the image + text */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .draft-info {
+            padding: 15px 20px;
+            text-align: left;
+            border-top: 1px solid #30363d;
+        }
+
+        .draft-info h4 {
+            color: var(--primary); /* Mint Green Title */
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .draft-info p {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Projects in 1 row */
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .soft-card {
+            text-decoration: none;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+            height: 300px; /* Matches your Art & Technical height */
+            transition: all 0.4s ease;
+        }
+
+        .soft-img-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+padding-left: calc(2% + 2vw); 
+    padding-right: calc(2% + 2vw);
+    max-width: 1400px;
+    margin: 0 auto;
+        }
+
+        .soft-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5) grayscale(40%); /* Dims the image so text is readable */
+            transition: 0.4s ease;
+        }
+
+        /* The Text Overlay */
+        .soft-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 1), rgba(13, 17, 23, 0));
+            text-align: left;
+        }
+
+        .soft-tags {
+            margin-bottom: 10px;
+        }
+
+        .soft-tags span {
+            font-size: 0.7rem;
+            background: rgba(255, 165, 0, 0.1);
+            color: #FFA500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 165, 0, 0.5);
+            margin-right: 5px;
+        }
+
+        .soft-overlay h4 {
+            color: #fff;
+            margin: 5px 0;
+            font-size: 1.2rem;
+        }
+
+        .soft-overlay p {
+            color: #8b949e;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* THE GLOW HOVER EFFECT */
+        .soft-card:hover {
+            border-color: rgba(255, 165, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+            transform: translateY(-8px);
+        }
+
+        .soft-card:hover img {
+            filter: brightness(0.6) grayscale(10%);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .software-grid {
+                grid-template-columns: 1fr; /* Stacks on mobile */
+            }
+        }
+        .carousel-wrapper {
+            position: relative; /* This is the anchor for the buttons */
+            padding: 0 10px;    /* Gives buttons a little room to breathe */
+            margin: 20px 0;
+        }
+        
+        /* Other Works Ribbon Specifics */
+
+        .other-ribbon::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari */
+        }
+        .other-ribbon {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 15px;
+            padding: 10px 0;
+            scrollbar-width: none; /* Hides scrollbar for Firefox */
+        }
+
+        /* 1. Base style (Desktop - 5 items) */
+        .other-card {
+            flex: 0 0 calc(20% - 12px); /* 5 items */
+            height: 250px;
+            scroll-snap-align: start;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        /* 2. Tablet style (3 items) */
+        @media (max-width: 1024px) {
+            .other-card {
+                flex: 0 0 calc(33.33% - 10px);
+            }
+        }
+
+        /* 3. Mobile Landscape (2 items) */
+        @media (max-width: 768px) {
+            .other-card {
+                flex: 0 0 calc(50% - 10px);
+                height: 220px; /* Slightly shorter for better mobile fit */
+            }
+
+        }
+
+        /* 4. Small Mobile Portrait (1.2 items) */
+        @media (max-width: 480px) {
+            .other-card {
+                /* 85% width lets the next card peek in from the right */
+                flex: 0 0 85%; 
+                height: 200px;
+            }
+
+            .other-ribbon {
+                gap: 10px;
+                padding-left: 20px; /* Padding so the first card isn't touching the edge */
+                padding-right: 20px;
+            }
+        }
+
+        .other-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(166, 82, 187, 0.4);
+        }
+
+        .other-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Purple Themed Caption */
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(13, 17, 23, 1));
+            text-align: center;
+        }
+
+        .carousel-caption span {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Restoring your preferred circular nav button design */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(166, 82, 187, 0.4); /* That specific purple opacity you liked */
+            border: 1px solid var(--secondary);
+            color: white;
+            width: 45px;   /* Fixed width for a perfect circle */
+            height: 45px;  /* Fixed height for a perfect circle */
+            cursor: pointer;
+            z-index: 100;
+            border-radius: 50%; /* Makes it circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-nav:hover {
+            background: var(--secondary); /* Solid purple on hover */
+            color: #fff;
+            transform: translateY(-50%) scale(1.15); /* Slight pop-out effect */
+            box-shadow: 0 0 15px var(--secondary);
+        }
+
+        /* Positioning them so they "float" on the edges */
+        .prev { left: -20px; }
+        .next { right: -20px; }
+
+        /* Hide them on mobile since users swipe anyway */
+        @media (max-width: 768px) {
+            .carousel-nav { display: none; }
+        }
+
+/* --- COMPACT NAV & MENU --- */
+/* --- FIXED NAV BAR --- */
+nav {
+    background: var(--nav-bg);
+    border-bottom: 1px solid #30363d;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 70px; /* Lock the height here */
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center; /* Vertical center */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    width: 100%; /* Changed from fixed 1200px to 100% for responsiveness */
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%; /* Inherit the 70px from nav */
+}
+
+.logo { 
+    color: var(--secondary); 
+    font-weight: bold; 
+    font-size: 1.5rem; 
+    margin: 0; 
+}
+
+/* --- MENU TOGGLE (HIDDEN ON DESKTOP) --- */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Hide button on Desktop */
+.menu-toggle {
+    display: none; 
+    font-size: 1.8rem;
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+/* --- THE ADAPTIVE TRIGGER --- */
+@media (max-width: 768px) {
+
+    /* Transform Links into a Dropdown */
+    .nav-links {
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; 
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        border-bottom: 2px solid var(--secondary);
+        padding: 20px 0;
+        text-align: center;
+        gap: 20px;
+        z-index: 1000;
+    }
+
+
     </style>
 </head>
+
+
 <body>
-    <div class="container">
-        <h1>👾 N1kōru</h1>
-        <p class="status">BSCpE Student | Self-Taught Artist | Technical Draftsman</p>
-        <hr style="border: 0.5px solid #30363d;">
-        <p>Welcome to my digital gallery. This site is currently under construction ✍️</p>
-        <br>
-        <a href="https://github.com/n1koru3" style="color: #58a6ff;">View my GitHub Projects</a>
+
+    <section id="home" class="hero-section"">
+        <div class="hero-content">
+            <p class="hero-subtitle">Software Engineer & Fine Artist</p>
+            <h1 class="hero-title">Hi, I'm <span>N1kōru</span></h1>
+            <p class="hero-bio">
+                Bridging the gap between <strong>technical logic</strong> and <strong>creative expression</strong>. 
+                Currently engineering systems at PUP and exploring the frontiers of Cybersecurity with A1SBERG.
+            </p>
+            <div class="hero-btns">
+                <a href="#contacts" class="btn btn-primary">Get in Touch</a>
+                <a href="#traditional" class="btn btn-outline">View Gallery</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="glow-sphere"></div>
+        </div>
+    </section>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">👾 N1kōru</div>
+		<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+		
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#about" onclick="toggleMenu()">About Me</a></li>
+                <li class="dropdown">
+                    <a href="#projects" class="dropbtn">Projects ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#traditional">Traditional Art</a>
+                        <a href="#digital">Digital Art</a>
+			<a href="#techDraft">Technical Plans</a>
+                        <a href="#software">Software/Systems</a>
+                        <a href="#other">Other Works</a>
+                    </div>
+                </li>
+
+                <li><a href="#contacts" onclick="toggleMenu()">Contacts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+	
+
+        <div class="content-wrapper">
+    <div style="height: 10px;"></div>
+	<section id="about" class="about-section">
+    <h1 class="main-title">🌸 Trisha Reminajes 🌸</h1>
+
+    <blockquote class="dali-quote">
+        “Have no fear of perfection, you'll never reach it.”– S. Dalí
+    </blockquote>
+
+    <div class="tag-container">
+        <span class="tag tag-art">🎨 Fine Arts</span>
+        <span class="tag tag-draft">✍️ Technical Drafting</span>
+	<span class="tag tag-dev">✍️ Junior Developer </span>
+        <span class="tag tag-cyber">👾 Cybersecurity</span>
+
     </div>
-</body>
+
+
+        <div class="svg-container">
+            <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=30&pause=700&color=9933FF&center=true&vCenter=true&width=800&lines=Self-taught+Artist+%F0%9F%96%8C%EF%B8%8F;Software+Developer+%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB;Capture+The+Flag+(CTF)+Player+%F0%9F%91%BE;Computer+Engineering+Student+%F0%9F%91%A9%E2%80%8D%F0%9F%94%A7;TESDA+Certified+in+Technical+Draftsman+%E2%9C%8D%EF%B8%8F;" alt="Typing SVG" />
+        </div>
+
+            <h3 class="content-header">🚀 About Me</h3>
+            <p>I’m <strong>Trisha</strong>, a 2nd-year Computer Engineering (BSCpE) student at PUP – Sta. Maria. I exist at the intersection of aesthetic design and technical execution. From the physical texture of a canvas to the complex logic of software, I am driven by the challenge of bringing ideas to life.</p>
+
+            <p>I am a quiet coder who deeply cares about the harmony between functionality and aesthetics. I believe software should be as intuitive as it is beautiful. By applying my artistic intuition to system architecture, I build projects that are both efficient and imaginative.</p>
+
+            <p>In the world of art, there is no such thing as a "perfect" piece—but there is always a masterpiece. I aim for that level of excellence in every line of code I write and every system I design. ✨</p>
+
+            <hr class="section-divider">
+
+    <div class="skills-grid">
+        <div class="skills-column">
+            <h3>💻 Technical Arsenal</h3>
+            <ul>
+                <li><strong>Languages:</strong> Java, C/C++, Python, JavaScript, HTML/CSS</li>
+                <li><strong>Cybersecurity:</strong> CTF Competitor, Basic Penetration Testing, Cryptography, Forensics</li>
+                <li><strong>Engineering:</strong> Embedded Systems, Circuit Analysis, Arduino, AutoCAD</li>
+                <li><strong>Tools:</strong> Git/GitHub, NetBeans, Linux (Ubuntu/Kali), VS Code</li>
+            </ul>
+        </div>
+
+        <div class="skills-column">
+            <h3>🎨 Creative Studio</h3>
+            <ul>
+                <li><strong>Fine Arts:</strong> Painting, Charcoal, Pastels, Color Theory</li>
+                <li><strong>Drafting:</strong> Architectural Plans, TESDA Certified</li>
+                <li><strong>Digital Art:</strong> PubMats, Illustration, UI/UX Concept Design</li>
+                <li><strong>Drafting Tools:</strong> AutoCAD, Manual Technical Sketching</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="orgs-section">
+        <h3 class="content-header">🏛️ Organizations</h3>
+        <div class="orgs-container">
+            <a href="https://www.facebook.com/acespupsmb" target="_blank" class="org-card card-aces">
+                <img src="imgs/logos/aces.jpg" alt="ACES">
+                <div class="org-info">
+                    <h4>PUPSMB - ACES</h4>
+                    <p>Alliance of Computer Engineering Students</p>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=61558260721862" target="_blank" class="org-card card-esteyo">
+                <img src="imgs/logos/esteyo.jpg" alt="Esteyo">
+                <div class="org-info">
+                    <h4>PUPSMB CCA - Esteyo</h4>
+                    <p>Aspiring artists</p>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/A1SBERG" target="_blank" class="org-card card-a1sberg">
+                <img src="imgs/logos/a1s.jpg" alt="A1SBERG">
+                <div class="org-info">
+                    <h4>A1SBERG</h4>
+                    <p>Cybersecurity School Organization</p>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=61586558693256" target="_blank" class="org-card card-likhalim">
+                <img src="imgs/logos/likhalim.jpg" alt="Likhalim">
+                <div class="org-info">
+                    <h4>Likhalim 3022</h4>
+                    <p>Artists and Musicians Community</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+        </div>
+    </section>
+
+    <section id="projects" class="projects-master">
+    <div id="traditional" class="project-category">
+        <h2 class="section-title">🖼️ Portfolio Gallery</h2>
+            <h3 class="category-header">📐 Traditional Arts</h3>
+            <p class="category-desc">Art pieces that takes months to finish.</p>
+
+        <div class="gallery-container">
+        <h4 class="row-label">👤 Portrait & Paintings</h4>
+        <div class="art-row portrait-row">
+            <div class="art-card"><img src="imgs/traditional/Tradart1.jpg" alt="P1"></div>
+            <div class="art-card"><img src="imgs/traditional/Tradart2.jpg" alt="P2"></div>
+            <div class="art-card"><img src="imgs/traditional/Tradart3.jpg" alt="P3"></div>
+            <div class="art-card"><img src="imgs/traditional/Tradart5.jpg" alt="P4"></div>
+            <div class="art-card"><img src="imgs/traditional/Tradart4.jpg" alt="P5"></div>
+        </div>
+            <div class="art-row square-row">
+            <div class="art-card placeholder"><img src="imgs/traditional/Tradart6.jpg" alt="S1"></div>
+            <div class="art-card placeholder"><img src="imgs/traditional/Tradart7.jpg" alt="S2"></div>
+            <div class="art-card placeholder"><img src="imgs/traditional/Tradart8.jpg" alt="S3"></div>
+            <div class="art-card placeholder"><img src="imgs/traditional/Tradart9.jpg" alt="S4"></div>
+        </div>
+
+        <h4 class="row-label">🟦 Sketch Studies</h4>
+            <div class="art-row portrait-row">
+            <div class="art-card"><img src="imgs/traditional/Sketchart3.jpg" alt="P1"></div>
+            <div class="art-card"><img src="imgs/traditional/Sketchart4.jpg" alt="P2"></div>
+            <div class="art-card"><img src="imgs/traditional/Sketchart5.jpg" alt="P3"></div>
+            <div class="art-card"><img src="imgs/traditional/Sketchart1.jpg" alt="P4"></div>
+            <div class="art-card"><img src="imgs/traditional/Sketchart2.jpg" alt="P5"></div>
+        </div>
+
+
+    </div>
+
+    <div id="digital" class="project-category">
+    <h3 class="category-header">📐 Digital Arts</h3>
+            <p class="category-desc">Art pieces that takes months to finish.</p>
+
+        <div class="gallery-container">
+        <h3 class="row-label">👤 Portrait & Sketches</h3>
+        <div class="art-row portrait-row">
+            <div class="art-card"><img src="imgs/digital/Digiart2.jpg" alt="P1"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart4.jpg" alt="P2"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart3.jpg" alt="P3"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart5.jpg" alt="P4"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart1.jpg" alt="P5"></div>
+        </div>
+    <div class="art-row portrait-row">
+            <div class="art-card"><img src="imgs/digital/Digiart56.jpg" alt="P1"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart53.jpg" alt="P2"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart52.jpg" alt="P3"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart51.jpg" alt="P4"></div>
+            <div class="art-card"><img src="imgs/digital/Digiart55.jpg" alt="P5"></div>
+        </div>
+
+        <h4 class="row-label">🟦 Publication Materials</h4>
+        <div class="art-row square-row">
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart7.jpg" alt="S1"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart8.jpg" alt="S2"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart9.jpg" alt="S3"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart13.jpg" alt="S4"></div>
+        </div>
+    <div class="art-row square-row">
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart10.jpg" alt="S1"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart6.jpg" alt="S2"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart15.jpg" alt="S3"></div>
+            <div class="art-card placeholder"><img src="imgs/digital/Digiart12.jpg" alt="S4"></div>
+        </div>
+
+
+    <div id="techDraft" class="project-category">
+        <h3 class="category-header">📐 Technical Plans</h3>
+        <p class="category-desc">TESDA Certified Architectural & Structural Drafting.</p>
+
+        <div class="draft-grid">
+            <div class="draft-card art-card"> <img src="imgs/drafting/plan2.jpg" alt="Floor Plan">
+                <div class="draft-info">
+                    <h4>Residential Floor Plan 1</h4>
+                    <p>AutoCAD / Architectural Drafting</p>
+                </div>
+            </div>
+
+            <div class="draft-card art-card">
+                <img src="imgs/drafting/" alt="Elevation">
+                <div class="draft-info">
+                    <h4>Residential Second Floor Plan</h4>
+                    <p>AutoCAD / Architectural Drafting</p>
+                </div>
+            </div>
+
+            <div class="draft-card art-card">
+                <img src="imgs/drafting/plan3.jpg" alt="Structural">
+                <div class="draft-info">
+                    <h4>Residential Elevations</h4>
+                    <p>Front, Rear & Side Elevations</p>
+                </div>
+            </div>
+
+            <div class="draft-card art-card">
+                <img src="imgs/drafting/plan41.png" alt="Electrical">
+                <div class="draft-info">
+                    <h4>3D Perspective</h4>
+                    <p>House Decoration and Design Sample</p>
+                </div>
+            </div>
+        </div>
+
+    <div id="software" class="project-category">
+        <h3 class="category-header">💻 Software & Systems</h3>
+        <p class="category-desc">Functional engineering solutions built for real-world utility.</p>
+
+        <div class="software-grid">
+            <a href="GITHUB_LINK" target="_blank" class="soft-card">
+                <div class="soft-img-container">
+                    <img src="imgs/software/System1.jpg" alt="Software Project">
+                    <div class="soft-overlay">
+                        <div class="soft-tags">
+                            <span>Java</span>
+                            <span>MySQL</span>
+                            <span>NetBeans</span>
+                        </div>
+                        <h4>Pharmacy's Inventory System</h4>
+                        <p>Managing stocks, re-stocking, disposing, that includes simple POS for small pharmacy stores.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="GITHUB_LINK" target="_blank" class="soft-card">
+                <div class="soft-img-container">
+                    <img src="imgs/software/System2.png" alt="Software Project">
+                    <div class="soft-overlay">
+                        <div class="soft-tags">
+                            <span>1C Script</span>
+                            <span>1C: Enterprise</span>
+                            <span>Mobile</span>
+                        </div>
+                        <h4>Global Registration System</h4>
+                        <p>A simple online registration system designed to scale from local events to global competitions.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="GITHUB_LINK" target="_blank" class="soft-card">
+                <div class="soft-img-container">
+                    <img src="imgs/software/System3.png" alt="Software Project">
+                    <div class="soft-overlay">
+                        <div class="soft-tags">
+                            <span>1C Script</span>
+                            <span>1C: Enterprise</span>
+                            <span>Web</span>
+                        </div>
+                        <h4>Event's Place Booking System</h4>
+                        <p>Streamlined booking and scheduling system for managing venue availability and client reservations.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div id="other" class="project-category">
+        <h3 class="category-header">✨ Personal Projects / Explorations</h3>
+        <p class="category-desc">Creative experiments I do that are related to my field and passion.</p>
+	<p3 >Swipe --> </p3>
+
+        <div class="carousel-wrapper">
+            <button class="carousel-nav prev" onclick="moveCarousel('otherCarousel', -1)">&#10094;</button>
+            <button class="carousel-nav next" onclick="moveCarousel('otherCarousel', 1)">&#10095;</button>
+
+            <div class="carousel-container other-ribbon" id="otherCarousel">
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other2.jpg" alt="Other Work 1">
+                    <div class="carousel-caption">
+                        <span>T-shirt Design</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other3.jpg" alt="Other Work 2">
+                    <div class="carousel-caption">
+                        <span>Mug Print</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other4.jpg" alt="Other Work 3">
+                    <div class="carousel-caption">
+                        <span>Circuits</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other8.jpg" alt="Other Work 4">
+                    <div class="carousel-caption">
+                        <span>Props Design</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other6.jpg" alt="Other Work 5">
+                    <div class="carousel-caption">
+                        <span>Oil Pastels</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other11.jpg" alt="Other Work 1">
+                    <div class="carousel-caption">
+                        <span>TM uCTF</span>
+                    </div>
+                </div>
+                <div class="carousel-item other-card art-card">
+                    <img src="imgs/other/other5.jpg" alt="Other Work 2">
+                    <div class="carousel-caption">
+                        <span>GhostScripts CTF</span>
+                    </div>
+                </div>
+            </div>
+		
+        </div>
+    </div>
+
+    <section id="contacts" class="contacts-section">
+        <h3 class="content-header">📫 Let's Connect</h3>
+        <p class="contact-desc">Whether it's for a <strong>fine arts commission</strong>, a <strong>coding collaboration</strong>, or just a chat about <strong>cybersecurity</strong>—my inbox is always open.</p>
+
+        <div class="contact-links">
+            <a href="mailto:nicolereminajes@gmail.com" class="contact-icon" title="Email Me">
+                <img src="https://skillicons.dev/icons?i=gmail" alt="Gmail" />
+            </a>
+
+            <a href="https://linkedin.com/in/trishareminajes" target="_blank" class="contact-icon" title="LinkedIn">
+                <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn" />
+            </a>
+
+            <a href="https://discord.com/users/nikoru_11" target="_blank" class="contact-icon" title="Discord Profile">
+                <img src="https://skillicons.dev/icons?i=discord" alt="Discord" />
+            </a>
+
+            <a href="https://instagram.com/_trshrmnjs_" target="_blank" class="contact-icon" title="Art Instagram">
+                <img src="https://skillicons.dev/icons?i=instagram" alt="Instagram" />
+    </a>
+            <a href="https://github.com/n1koru3" target="_blank" class="contact-icon" title="View my Repositories">
+        <img src="https://skillicons.dev/icons?i=github" alt="GitHub" />
+    </a>
+
+        </div>
+
+        <footer class="site-footer">
+	    <div class="footer-divider"></div>
+            <p class="footer-copyright">
+                Built by <span>N1kōru</span> • 2026
+            </p>
+            <p class="footer-tagline">Artist by Heart. Engineer by Choice.</p>
+        </footer>
+    </section>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Full View">
+    </div>
+
+    </body>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Automatically apply the click event to all gallery images
+        document.querySelectorAll('.art-card img').forEach(image => {
+            image.onclick = function() {
+                openLightbox(this.src);
+            };
+        });
+        function moveCarousel(carouselId, direction) {
+            const container = document.getElementById(carouselId);
+
+            if (!container) {
+                console.error("Carousel with ID " + carouselId + " not found!");
+                return;
+            }
+
+            // Determine how far to scroll (1 full card width + gap)
+            // Adjusting to 300px ensures it moves even if the container width is weird
+            const scrollAmount = 300 * direction; 
+
+            container.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+
+            console.log("Scrolling " + carouselId + " by " + scrollAmount);
+        }
+
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        // This toggles the 'active' class which triggers the 'display: flex' in CSS
+        navLinks.classList.toggle('active');
+    }
+
+    // Optional: Close menu if clicking outside
+    document.addEventListener('click', function(event) {
+        const nav = document.querySelector('nav');
+        const navLinks = document.getElementById('navLinks');
+        if (!nav.contains(event.target)) {
+            navLinks.classList.remove('active');
+        }
+    });
+
+    </script>
+
 </html>
